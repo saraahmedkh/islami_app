@@ -389,7 +389,16 @@ class _QuranTabState extends State<QuranTab> {
 
   TextEditingController Searchcontroller = TextEditingController();
 
-  void filterSuras(String qurey) {}
+  void filterSuras(String qurey) {
+    if (qurey.isEmpty) {
+      FiltredSuras = allsuras;
+    } else {
+      FiltredSuras = allsuras.where((model) {
+        return model.nameAr.contains(qurey) ||
+            model.nameEN.toLowerCase().contains(qurey.toLowerCase());
+      }).toList();
+          }
+      }
 
   @override
   Widget build(BuildContext context) {
@@ -493,14 +502,15 @@ class _QuranTabState extends State<QuranTab> {
             Expanded(
               child: ListView.separated(
                 itemCount: FiltredSuras.length,
-                separatorBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: Divider(
-                    endIndent: 44,
-                    indent: 44,
-                    color: Colors.white,
-                  ),
-                ),
+                separatorBuilder: (context, index) =>
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Divider(
+                        endIndent: 44,
+                        indent: 44,
+                        color: Colors.white,
+                      ),
+                    ),
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
@@ -509,11 +519,11 @@ class _QuranTabState extends State<QuranTab> {
                       Navigator.pushNamed(
                         context,
                         SuraDetailsScreen.routeName,
-                        arguments: allsuras[index],
+                        arguments: FiltredSuras[index],
                       );
                     },
 
-                    child: SuraItem(model: allsuras[index]),
+                    child: SuraItem(model: FiltredSuras[index]),
                   );
                 },
               ),
