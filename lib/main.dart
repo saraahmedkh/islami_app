@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:islami_application/core/cach_helper.dart';
+import 'package:islami_application/home/hadeth_details/hadeth_details.dart';
 import 'package:islami_application/home_screen.dart';
 import 'package:islami_application/introduction_screen.dart';
 
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         IntroductionScreens.routeName :(context)=> IntroductionScreens(),
         HomeScreen.routeName :(context)=> HomeScreen(),
         SuraDetailsScreen.routeName :(context)=> SuraDetailsScreen(),
+          HadethDetails.routeName :(context)=> HadethDetails(),
 
       }
 

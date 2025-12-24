@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:islami_application/home/model/hadeth_model.dart';
 
+import '../hadeth_details/hadeth_details.dart';
+
 class HadethTab extends StatefulWidget {
   HadethTab({super.key});
 
@@ -55,17 +57,21 @@ class _HadethTabState extends State<HadethTab> {
                                 child: ListView.builder(
                                   itemCount: model.hadethcontent.length,
                                   itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.all(18),
-                                      child: Text(
-                                        model.hadethcontent[index],
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 8,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 24,
+                                    return InkWell( onTap: (){
+                                      Navigator.pushNamed(context, HadethDetails.routeName,arguments: model);
+                                    },
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(18),
+                                        child: Text(
+                                          model.hadethcontent[index],
                                           overflow: TextOverflow.ellipsis,
+                                          maxLines: 8,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 24,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
                                       ),
                                     );
