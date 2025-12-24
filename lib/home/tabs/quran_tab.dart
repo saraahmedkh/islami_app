@@ -446,27 +446,7 @@ class _QuranTabState extends State<QuranTab> {
                 ),
               ),
             ),
-            // SizedBox(height: 20),
-            // if (displayMostRecently.isNotEmpty) ...[
-            //   SizedBox(height: 10),
-            //   Container(
-            //     height: 155,
-            //     child: ListView.separated(
-            //       separatorBuilder: (context, index) => SizedBox(width: 10),
-            //       itemCount: displayMostRecently.length,
-            //       scrollDirection: Axis.horizontal,
-            //       itemBuilder: (BuildContext context, int index) {
-            //         return RecentlyItem(
-            //           model: SuraModel(
-            //             suraIndex: displayMostRecently[index] + 1,
-            //             nameAr: surasName[displayMostRecently[index]],
-            //             nameEN: surasNameEnglish[displayMostRecently[index]],
-            //             versesCount: surasVersesCount[displayMostRecently[index]],
-            //           ),
-            //         );
-            //       },
-            //     ),
-            //   ),
+             SizedBox(height: 20),
             if (displayMostRecently.isNotEmpty) ...[
               SizedBox(height: 10),
               Text("Most Recently", style: TextStyle(color: AppColors.primary)),
@@ -522,7 +502,6 @@ class _QuranTabState extends State<QuranTab> {
                         arguments: FiltredSuras[index],
                       );
                     },
-
                     child: SuraItem(model: FiltredSuras[index]),
                   );
                 },
