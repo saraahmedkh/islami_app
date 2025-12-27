@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SebhaTab extends StatefulWidget {
+  static const String routeName="SebhaTab()";
+
   const SebhaTab({super.key});
 
   @override
