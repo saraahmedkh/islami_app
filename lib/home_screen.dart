@@ -37,27 +37,27 @@ class _HomeScreenState extends State<HomeScreen> {
         items: [
           BottomNavigationBarItem(
             backgroundColor: AppColors.primary,
-            icon: _getbtnselectedNavbaritem("ic_quran", 1),
+            icon: _getbtnselectedNavbaritem("ic_quran", 0),
             label: "quran",
           ),
           BottomNavigationBarItem(
             backgroundColor: AppColors.primary,
-            icon: _getbtnselectedNavbaritem("ic_hadeth", 2),
+            icon: _getbtnselectedNavbaritem("ic_hadeth", 1),
             label: "hadeth",
           ),
           BottomNavigationBarItem(
             backgroundColor: AppColors.primary,
-            icon: _getbtnselectedNavbaritem("ic_sebha", 3),
+            icon: _getbtnselectedNavbaritem("ic_sebha", 2),
             label: "sebha",
           ),
           BottomNavigationBarItem(
             backgroundColor: AppColors.primary,
-            icon: _getbtnselectedNavbaritem("ic_radio", 4),
+            icon: _getbtnselectedNavbaritem("ic_radio", 3),
             label: "radio",
           ),
           BottomNavigationBarItem(
             backgroundColor: AppColors.primary,
-            icon: _getbtnselectedNavbaritem("ic_time", 5),
+            icon: _getbtnselectedNavbaritem("ic_time", 4),
             label: "time",
           ),
         ],

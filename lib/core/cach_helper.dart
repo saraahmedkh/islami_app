@@ -20,7 +20,7 @@ class CachHelper {
   static Future<void>SaveList(int index) async{
     var previousList= getList("items");
     previousList.add(index);
-    var data = previousList.map((e)=>e.toString()).toList()??[];
+    var data = previousList.map((e)=>e.toString()).toList();
     await prefs.setStringList("items", data);
   }
 
