@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:islami_application/core/app_colors.dart';
 import 'package:islami_application/core/app_style.dart';
+import 'package:islami_application/core/cach_helper.dart';
 import 'package:islami_application/home_screen.dart';
 
 class IntroductionScreens extends StatelessWidget {
@@ -59,9 +60,11 @@ class IntroductionScreens extends StatelessWidget {
       back: Icon(Icons.arrow_back, color: AppColors.primary ),
       showBackButton: true,
       onSkip: () {
+      CachHelper.SaveBool(true);
         Navigator.pushNamed(context, HomeScreen.routeName);
       },
       onDone: () {
+        CachHelper.SaveBool(true);
         Navigator.pushNamed(context, HomeScreen.routeName);
       },
     );

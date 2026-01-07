@@ -30,7 +30,6 @@ class RecentlyItem extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   color: Colors.black,)),
                 SizedBox(height: 8),
-
                 Text("${model.versesCount} verses ", style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,

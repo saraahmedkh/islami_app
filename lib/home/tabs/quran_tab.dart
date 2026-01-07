@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:islami_application/core/app_colors.dart';
+import 'package:islami_application/core/cach_helper.dart';
 import 'package:islami_application/home/model/sura_model.dart';
+import 'package:islami_application/home/sura_details/sura_details_screen.dart';
 import 'package:islami_application/home/widgets/Recently_item.dart';
 import 'package:islami_application/home/widgets/sura_item.dart';
 
-class QuranTab extends StatelessWidget {
+class QuranTab extends StatefulWidget {
   QuranTab({super.key});
+
+  @override
+  State<QuranTab> createState() => _QuranTabState();
+}
+
+class _QuranTabState extends State<QuranTab> {
+  @override
+  void initState() {
+    super.initState();
+    CreatSuraList();
+    FiltredSuras = allsuras;
+  }
 
   List<String> surasName = [
     "الفاتحه",
@@ -123,6 +137,7 @@ class QuranTab extends StatelessWidget {
     "الفلق",
     "الناس",
   ];
+
   List<String> surasNameEnglish = [
     "Al-Fatihah",
     "Al-Baqarah",
@@ -239,6 +254,7 @@ class QuranTab extends StatelessWidget {
     "Al-Falaq",
     "An-Nas",
   ];
+
   List<int> surasVersesCount = [
     7, // Al-Fatihah
     286, // Al-Baqarah
@@ -355,21 +371,56 @@ class QuranTab extends StatelessWidget {
     5, // Al-Falaq
     6, // An-Nas
   ];
+  List<SuraModel> allsuras = [];
+  List<SuraModel> FiltredSuras = [];
+
+  void CreatSuraList() {
+    for (int i = 0; i < surasName.length; i++) {
+      allsuras.add(
+        SuraModel(
+          suraIndex: i + 1,
+          nameAr: surasName[i],
+          nameEN: surasNameEnglish[i],
+          versesCount: surasVersesCount[i],
+        ),
+      );
+    }
+  }
+
+  TextEditingController Searchcontroller = TextEditingController();
+
+  void filterSuras(String qurey) {
+    setState(() {});
+    if (qurey.isEmpty) {
+      FiltredSuras = allsuras;
+    } else {
+      FiltredSuras = allsuras.where((model) {
+        return model.nameAr.contains(qurey) ||
+            model.nameEN.toLowerCase().contains(qurey.toLowerCase());
+      }).toList();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    List<int> displayMostRecently = CachHelper.getList("items");
     return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(image: AssetImage("assets/images/quran_bg.png")),
-      ),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/images/quran_bg.png")),
+        ),
 
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 192),
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                SizedBox(height: 192),
             TextField(
+              onChanged: (value) {
+                filterSuras(value);
+              },
+              controller: Searchcontroller,
               cursorColor: AppColors.primary,
               style: TextStyle(
                 color: Colors.white,
@@ -398,59 +449,72 @@ class QuranTab extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            Text("Most Recently", style: TextStyle(color: AppColors.primary)),
-            SizedBox(height: 10),
-            Container(
-              height: 155,
-              child: ListView.separated(
-                separatorBuilder: (context, index) => SizedBox(width: 10),
-                itemCount: 10,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (BuildContext context, int index) {
-                   return RecentlyItem(model: SuraModel(
-                     suraIndex: index+1,
-                     nameAr: surasName[index],
-                     nameEN: surasNameEnglish[index],
-                     versesCount: surasVersesCount[index],
-                   ),);
-
-                },
-              ),
-            ),
-            SizedBox(height: 10),
-            Text(
-              "Suras List",
-              style: TextStyle(
-                color: AppColors.primary,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Expanded(
-              child: ListView.separated(
-                itemCount: surasName.length,
-                separatorBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: Divider(
-                    endIndent: 44,
-                    indent: 44,
-                    color: Colors.white,
-                  ),
-                ),
-                itemBuilder: (context, index) {
-                  return SuraItem(
-                    model: SuraModel(
-                      suraIndex: index+1,
-                      nameAr: surasName[index],
-                      nameEN: surasNameEnglish[index],
-                      versesCount: surasVersesCount[index],
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
+            if (displayMostRecently.isNotEmpty) ...[
+        SizedBox(height: 10),
+    Text("Most Recently", style: TextStyle(color: AppColors.primary)),
+    SizedBox(height: 10),
+    Container(
+    height: 155,
+    child: ListView.separated(
+    separatorBuilder: (context, index) => SizedBox(width: 10),
+    itemCount: displayMostRecently.length,
+    scrollDirection: Axis.horizontal,
+    itemBuilder: (BuildContext context, int index) {
+    return RecentlyItem(
+    model: SuraModel(
+    suraIndex: displayMostRecently[index] + 1,
+    nameAr: surasName[displayMostRecently[index]],
+    nameEN: surasNameEnglish[displayMostRecently[index]],
+    versesCount: surasVersesCount[displayMostRecently[index]],
+    ),
     );
+    },
+    ),
+    ),
+    ],
+    SizedBox(height: 10),
+
+    Text(
+    "Suras List",
+    style: TextStyle(
+    color: AppColors.primary,
+    fontWeight: FontWeight.bold,
+    ),
+    ),
+    Expanded(
+    child: ListView.separated(
+    itemCount: FiltredSuras.length,
+    separatorBuilder: (context, index) =>
+    Padding(
+    padding: const EdgeInsets.symmetric(vertical: 4),
+    child: Divider(
+    endIndent: 44,
+    indent: 44,
+    color: Colors.white,
+    ),
+    ),
+    itemBuilder: (context, index) {
+    return InkWell(
+    onTap: () {
+    CachHelper.SaveList(FiltredSuras[index].suraIndex - 1);
+    Navigator.pushNamed(
+    context,
+    SuraDetailsScreen.routeName,
+    arguments: FiltredSuras[index],
+    ).then((_) {
+    setState(() {});
+    });
+    },
+    child: SuraItem(
+    model: FiltredSuras[index],
+    ),
+    );
+
+    }
+    ),
+    )],
+    ),
+    ),
+    );
+    }
   }
-}

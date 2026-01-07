@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
-# of the product and file versions while build-number is used as the build suffix.
+# of the product and files versions while build-number is used as the build suffix.
 version: 1.0.0+1
 
 environment:
@@ -28,6 +28,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  google_fonts: ^6.3.3
+
   flutter:
     sdk: flutter
 
@@ -36,6 +38,9 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_native_splash: ^2.4.7
   introduction_screen: ^4.0.0
+  shared_preferences: ^2.5.4
+  carousel_slider: ^5.1.1
+
 
 dev_dependencies:
   flutter_test:
@@ -43,12 +48,12 @@ dev_dependencies:
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
+  # activated in the `analysis_options.yaml` files located at the root of your
+  # package. See that files for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
 
-# For information on the generic Dart part of this file, see the
+# For information on the generic Dart part of this files, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
@@ -61,6 +66,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/files/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
